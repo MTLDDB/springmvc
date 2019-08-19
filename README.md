@@ -1,3 +1,3 @@
 # springmvc
-test
+a sample test
 a springmvc demo with a interceptor.
