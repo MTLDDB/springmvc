@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+ <!--   &lt;!&ndash; 启用开发模式 &ndash;&gt;
+    <constant name="struts.devMode" value="true" />-->
+    <constant name="struts.objectFactory" value="spring"/>
+    <package name="default"  extends="struts-default">
+        <interceptors>
+            <interceptor name="dateInterceptor" class="interceptor.DateInterceptor" />
+        </interceptors>
+        <action name="index">
+            <result>index.jsp</result>
+        </action>
+        <action name="showProduct" class="productActionBean" method="show">
+            <result name="show">show.jsp</result>
+        </action>
+        <action name="addProduct" class="productActionBean" method="add">
+            <result name="input">addProduct.jsp</result>
+            <result name="show">show.jsp</result>
+        </action>
+        <action name="upload" class="uploadActionBean" method="upload">
+            <result name="success">success.jsp</result>
+        </action>
+        <action name="listProduct" class="productActionBean" method="list">
+            <interceptor-ref name="dateInterceptor" />
+            <interceptor-ref name="defaultStack" />
+            <result name="list">list.jsp</result>
+        </action>
+        <action name="addPageProduct" class="productActionBean" method="addPage">
+            <result name="addPage" type="redirect">addProduct.jsp?name=${name}</result>
+        </action>
+    </package>
+    <package name="basicStruts" extends="struts-default">
+        <action name="addProduct" class="productActionBean1"
+                method="add">
+            <result name="list" type="redirectAction">listProduct</result>
+        </action>
+        <action name="deleteProduct" class="productActionBean1"
+                method="delete">
+            <result name="list" type="redirectAction">listProduct</result>
+        </action>
+        <action name="editProduct" class="productActionBean1"
+                method="edit">
+            <result name="edit">/product/edit.jsp</result>
+        </action>
+        <action name="updateProduct" class="productActionBean1"
+                method="update">
+            <result name="list" type="redirectAction">listProduct</result>
+        </action>
+        <action name="listProduct" class="productActionBean1"
+                method="list">
+            <result name="listJsp">/product/list.jsp</result>
+        </action>
+    </package>
+</struts>
